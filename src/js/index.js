@@ -3,7 +3,7 @@
 // [] 메뉴의 이름을 입력 받고 확인 버튼을 누르면 메뉴가 추가된다.
 // [x] 메뉴의 이름을 입력 받고 엔터키 입력으로 추가한다.
 // [x] 추가되는 메뉴의 아래 마크업은 <!-- <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> --> 안에 삽입해야 한다.
-// [] 총 메뉴 갯수를 count하여 상단에 보여준다.
+// [x] 총 메뉴 갯수를 count하여 상단에 보여준다.
 // [] 메뉴가 추가되고 나면, input은 빈 값으로 초기화한다.
 // [] 사용자 입력값이 빈 값이라면 추가되지 않는다.
 
@@ -49,6 +49,12 @@ function App() {
         "beforeend",
         menuItemTemplate(espressoMenuName)
       );
+      // 입력된 메뉴 개수 count하여 나타내기
+      // html의 "menu-count" 클래스명 이용
+      // 문자값만 바꾸는 것이기 때문에 innerText사용
+      // li 갯수를 카운팅하자
+      const menuCount = $("#espresso-menu-list").querySelectorAll("li").length; // 전체 값 다 가져오기 - All 붙이기
+      $(".menu-count").innerText = "총 " + menuCount + "개";
     }
   });
 }
