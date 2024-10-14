@@ -1,17 +1,31 @@
-// ### TODO 메뉴 추가
+// ### TODO 메뉴 수정
 
-// [x] 메뉴의 이름을 입력 받고 확인 버튼을 클릭하면 메뉴가 추가된다.
-// [x] 메뉴의 이름을 입력 받고 엔터키 입력으로 추가한다.
-// [x] 추가되는 메뉴의 아래 마크업은 <!-- <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> --> 안에 삽입해야 한다.
-// [x] 총 메뉴 갯수를 count하여 상단에 보여준다.
-// [x] 메뉴가 추가되고 나면, input은 빈 값으로 초기화한다.
-// [x] 사용자 입력값이 빈 값이라면 추가되지 않는다.
+// - 메뉴의 수정 버튼을 눌러 메뉴 이름을 수정할 수 있다.
+//    - 현재 수정 버튼이 html 코드에 없기 때문에 "이벤트 위임"을 사용해야 한다.(상위의 태그에게 이벤트를 위임한다.)
+//   [x] 메뉴의 수정 버튼클릭 이벤트를 받고, 메뉴 수정하는 모달창이 뜬다.
+//   [x] 모달창에서 수정메뉴명을 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
 
 // 자주 사용하는 쿼리를 하나의 변수로 만들기
 const $ = (selector) => document.querySelector(selector);
 
 // 앱을 실행하기 위한 함수 만들기
 function App() {
+  $("#espresso-menu-list").addEventListener("click", (e) => {
+    // 클래스명이 있는지 없는지 확인 - 수정버튼을 눌렀을때만 들어옴
+    if (e.target.classList.contains("menu-edit-button")) {
+      // 기본값으로 menuName이 입력되어있도록
+      const menuName = e.target
+        // 가장 가까운 li 타겟을 찾는다.
+        .closest("li")
+        .querySelector(".menu-name").innerText;
+      const updatedMenuName = prompt("메뉴명을 수정하세요", menuName);
+
+      // 새로 입력받은 값을 업데이트해준다.
+      e.target.closest("li").querySelector(".menu-name").innerText =
+        updatedMenuName;
+    }
+  });
+
   // form 태그가 자동으로 전송되는걸 막아준다.
   $("#espresso-menu-form").addEventListener("submit", (e) => {
     e.preventDefault();
