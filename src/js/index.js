@@ -13,16 +13,16 @@ function App() {
   $("#espresso-menu-list").addEventListener("click", (e) => {
     // 클래스명이 있는지 없는지 확인 - 수정버튼을 눌렀을때만 들어옴
     if (e.target.classList.contains("menu-edit-button")) {
+      // 동일한 코드 변수화
+      // 가장 가까운 li 타겟을 찾는다.
+      const $menuName = e.target.closest("li").querySelector(".menu-name");
       // 기본값으로 menuName이 입력되어있도록
-      const menuName = e.target
-        // 가장 가까운 li 타겟을 찾는다.
-        .closest("li")
-        .querySelector(".menu-name").innerText;
-      const updatedMenuName = prompt("메뉴명을 수정하세요", menuName);
-
+      const updatedMenuName = prompt(
+        "메뉴명을 수정하세요",
+        $menuName.innerText
+      );
       // 새로 입력받은 값을 업데이트해준다.
-      e.target.closest("li").querySelector(".menu-name").innerText =
-        updatedMenuName;
+      $menuName.innerText = updatedMenuName;
     }
   });
 
