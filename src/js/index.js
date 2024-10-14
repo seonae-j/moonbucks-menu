@@ -1,15 +1,21 @@
-// ### TODO 메뉴 수정
+// ### TODO 메뉴 삭제
 
-// - 메뉴의 수정 버튼을 눌러 메뉴 이름을 수정할 수 있다.
-//    - 현재 수정 버튼이 html 코드에 없기 때문에 "이벤트 위임"을 사용해야 한다.(상위의 태그에게 이벤트를 위임한다.)
-//   [x] 메뉴의 수정 버튼클릭 이벤트를 받고, 메뉴 수정하는 모달창이 뜬다.
-//   [x] 모달창에서 수정메뉴명을 입력 받고, 확인버튼을 누르면 메뉴가 수정된다.
+// - 메뉴 삭제 버튼을 이용하여 메뉴 삭제할 수 있다.
+//   [x] 메뉴 삭제 버튼 클릭 이벤트를 받고, 메뉴 삭제 컨펌 모달창이 뜬다.
+//   [x] 확인 버튼을 클릭하면 메뉴가 삭제된다.
+//   [x] 총 개수 카운트도 함께 삭제된다.
 
 // 자주 사용하는 쿼리를 하나의 변수로 만들기
 const $ = (selector) => document.querySelector(selector);
 
 // 앱을 실행하기 위한 함수 만들기
 function App() {
+  // 메뉴 삭제 함수
+  const updateMenuCount = () => {
+    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length; // 전체 값 다 가져오기 - All 붙이기
+    $(".menu-count").innerText = "총 " + menuCount + "개";
+  };
+  // 메뉴 상태가 업데이트되는 기능을 함수화하기
   $("#espresso-menu-list").addEventListener("click", (e) => {
     // 클래스명이 있는지 없는지 확인 - 수정버튼을 눌렀을때만 들어옴
     if (e.target.classList.contains("menu-edit-button")) {
@@ -23,6 +29,14 @@ function App() {
       );
       // 새로 입력받은 값을 업데이트해준다.
       $menuName.innerText = updatedMenuName;
+    }
+
+    // 삭제 버튼 클래스명이 있는지 확인
+    if (e.target.classList.contains("menu-remove-button")) {
+      if (confirm("정말 삭제하시겠습니까?")) {
+        e.target.closest("li").remove();
+        updateMenuCount();
+      }
     }
   });
 
@@ -69,8 +83,7 @@ function App() {
     // html의 "menu-count" 클래스명 이용
     // 문자값만 바꾸는 것이기 때문에 innerText사용
     // li 갯수를 카운팅하자
-    const menuCount = $("#espresso-menu-list").querySelectorAll("li").length; // 전체 값 다 가져오기 - All 붙이기
-    $(".menu-count").innerText = "총 " + menuCount + "개";
+    updateMenuCount();
     // input창 초기화
     $("#espresso-menu-name").value = "";
   };
