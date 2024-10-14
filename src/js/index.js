@@ -22,7 +22,33 @@ function App() {
   //찾은 element를 입력 후 enter키를 누르면 이벤트 실행
   $("#espresso-menu-name").addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-      console.log($("#espresso-menu-name").value);
+      // console.log($("#espresso-menu-name").value);
+      const espressoMenuName = $("#espresso-menu-name").value;
+      // 해당 템플릿에 인자를 전달받을 함수를 입력하고 li에 추가하기
+      const menuItemTemplate = (espressoMenuName) => {
+        return `
+        <li class="menu-list-item d-flex items-center py-2">
+          <span class="w-100 pl-2 menu-name">${espressoMenuName}</span>
+          <button
+            type="button"
+            class="bg-gray-50 text-gray-500 text-sm mr-1 menu-edit-button"
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            class="bg-gray-50 text-gray-500 text-sm menu-remove-button"
+          >
+            삭제
+          </button>
+        </li>`;
+      };
+      // 템플릿이 만들어지는지 확인하기 - innerHTML을 사용하면 기존에 있던 메뉴 리스트가 삭제된다.
+      // => insertAdjacentHTML() 메서드를 사용해야 함
+      $("#espresso-menu-list").insertAdjacentHTML(
+        "beforeend",
+        menuItemTemplate(espressoMenuName)
+      );
     }
   });
 }
