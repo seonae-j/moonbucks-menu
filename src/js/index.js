@@ -1,6 +1,6 @@
 // ### TODO 메뉴 추가
 
-// [] 메뉴의 이름을 입력 받고 확인 버튼을 누르면 메뉴가 추가된다.
+// [x] 메뉴의 이름을 입력 받고 확인 버튼을 클릭하면 메뉴가 추가된다.
 // [x] 메뉴의 이름을 입력 받고 엔터키 입력으로 추가한다.
 // [x] 추가되는 메뉴의 아래 마크업은 <!-- <ul id="espresso-menu-list" class="mt-3 pl-0"></ul> --> 안에 삽입해야 한다.
 // [x] 총 메뉴 갯수를 count하여 상단에 보여준다.
@@ -17,13 +17,9 @@ function App() {
     e.preventDefault();
   });
 
-  //메뉴의 이름 입력받기
-  // element 찾기 쿼리
-  //찾은 element를 입력 후 enter키를 누르면 이벤트 실행
-  $("#espresso-menu-name").addEventListener("keypress", (e) => {
-    if (e.key !== "Enter") {
-      return;
-    }
+  // 아래의 코드와 중복이 되는 상황이다.
+  // 재사용 가능한 함수 먼저 만들기
+  const addMenuName = () => {
     if ($("#espresso-menu-name").value === "") {
       alert("값을 입력해주세요.");
       return;
@@ -63,6 +59,21 @@ function App() {
     $(".menu-count").innerText = "총 " + menuCount + "개";
     // input창 초기화
     $("#espresso-menu-name").value = "";
+  };
+
+  // '확인'버튼 클릭 시 메뉴 추가되는 기능
+  $("#espresso-menu-submit-button").addEventListener("click", () => {
+    addMenuName();
+  });
+
+  //메뉴의 이름 입력받기
+  // element 찾기 쿼리
+  //찾은 element를 입력 후 enter키를 누르면 이벤트 실행
+  $("#espresso-menu-name").addEventListener("keypress", (e) => {
+    if (e.key !== "Enter") {
+      return;
+    }
+    addMenuName();
   });
 }
 
