@@ -55,6 +55,7 @@ function App() {
       // li 갯수를 카운팅하자
       const menuCount = $("#espresso-menu-list").querySelectorAll("li").length; // 전체 값 다 가져오기 - All 붙이기
       $(".menu-count").innerText = "총 " + menuCount + "개";
+      $("#espresso-menu-name").value = "";
     }
   });
 }
